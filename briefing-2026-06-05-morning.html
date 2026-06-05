@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>☀️ Morning Brief — Friday, June 5, 2026</title>
+<style>
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fff8ed;
+  --bg-grad: linear-gradient(160deg, #ffedd5 0%, #fff8ed 40%, #fefce8 100%);
+  --surface: #ffffff;
+  --surface-2: #fef3c7;
+  --border: #fde68a;
+  --text: #1c1917;
+  --text-muted: #78716c;
+  --text-dim: #a8a29e;
+  --accent: #f97316;
+  --accent-2: #fbbf24;
+  --warm: #fb923c;
+  --red: #dc2626;
+  --shadow: 0 2px 8px rgba(251, 146, 60, 0.08), 0 1px 3px rgba(251, 146, 60, 0.05);
+  --shadow-strong: 0 8px 24px rgba(251, 146, 60, 0.15);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c0f04;
+    --bg-grad: linear-gradient(160deg, #2a1709 0%, #1c0f04 60%, #1a0e08 100%);
+    --surface: #2a1a0d;
+    --surface-2: #3a2515;
+    --border: #5a3a20;
+    --text: #fef3c7;
+    --text-muted: #d6b890;
+    --text-dim: #a8825a;
+    --shadow: 0 2px 8px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-strong: 0 8px 24px rgba(0,0,0,0.5);
+  }
+}
+html, body {
+  background: var(--bg);
+  background-image: var(--bg-grad);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+.container { max-width: 720px; margin: 0 auto; padding: 28px 18px 80px; }
+
+/* Sun banner */
+.sun-banner {
+  position: relative;
+  background: linear-gradient(120deg, #fb923c 0%, #fbbf24 50%, #fde68a 100%);
+  border-radius: 20px;
+  padding: 28px 24px 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-strong);
+  overflow: hidden;
+}
+.sun-banner::before {
+  content: "";
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+}
+.sun-emoji { font-size: 36px; line-height: 1; margin-bottom: 4px; }
+.date { color: rgba(28, 25, 23, 0.65); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; position: relative; z-index: 1; }
+.greeting { color: #1c1917; font-size: 26px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; position: relative; z-index: 1; }
+
+.stats {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 14px;
+  font-size: 13px;
+  color: #1c1917;  /* force dark text — banner is always light */
+  position: relative; z-index: 1;
+}
+.stats strong { font-weight: 800; color: #1c1917; }
+.stats .overdue-stat strong { color: var(--red); }
+
+/* Fun fact */
+.fun-fact {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent-2);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 28px;
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: var(--shadow);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.fun-fact-icon { font-size: 22px; flex-shrink: 0; }
+.fun-fact-text { color: var(--text); }
+.fun-fact-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); display: block; margin-bottom: 2px; }
+
+.section { margin-top: 28px; }
+.section-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 12px; padding-left: 4px; display: flex; align-items: center; gap: 6px; }
+.empty { color: var(--text-muted); font-size: 14px; padding: 16px 18px; background: var(--surface); border: 1px dashed var(--border); border-radius: 14px; }
+
+/* Calendar */
+.cal-event { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 8px; box-shadow: var(--shadow); }
+.cal-time { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 14px; min-width: 72px; color: var(--accent); }
+.cal-title { font-weight: 600; flex: 1; }
+.muted { color: var(--text-muted); font-weight: 400; }
+.badge { display: inline-block; background: var(--surface-2); color: var(--accent); padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; margin-left: 4px; }
+
+/* Email cards */
+.email-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px 18px; margin-bottom: 12px; box-shadow: var(--shadow); transition: box-shadow 0.2s; }
+.email-card:hover { box-shadow: var(--shadow-strong); }
+.email-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+.email-from { font-weight: 700; font-size: 14px; }
+.email-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.inbox-chip { font-size: 10px; padding: 3px 9px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; background: var(--surface-2); color: var(--accent); }
+.email-card.fyi-card { background: rgba(255, 255, 255, 0.6); border-style: dashed; }
+.email-card.fyi-card .email-subject { font-weight: 500; }
+.email-subject { font-size: 14.5px; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+.email-blurb { font-size: 13.5px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5; }
+.email-action { display: inline-block; font-size: 11px; font-weight: 800; padding: 5px 11px; border-radius: 8px; border: 1px solid; letter-spacing: 0.06em; }
+
+/* Email body preview */
+.email-body-block { margin-top: 10px; border-top: 1px dashed var(--border); padding-top: 8px; }
+.email-body-block summary { cursor: pointer; font-size: 12.5px; color: var(--text-muted); font-weight: 600; padding: 4px 4px; user-select: none; list-style: none; }
+.email-body-block summary::-webkit-details-marker { display: none; }
+.email-body-block[open] summary { margin-bottom: 8px; color: var(--accent); }
+.email-body-text { font-size: 13px; color: var(--text); line-height: 1.6; white-space: pre-wrap; background: var(--surface-2); border-radius: 10px; padding: 10px 12px; border-left: 3px solid var(--accent); }
+
+/* Drafts */
+.draft-block { margin-top: 12px; border-top: 1px dashed var(--border); padding-top: 10px; }
+.draft-block summary { cursor: pointer; font-size: 13px; color: var(--accent); font-weight: 600; padding: 6px 4px; user-select: none; list-style: none; display: flex; align-items: center; gap: 6px; }
+.draft-block summary::-webkit-details-marker { display: none; }
+.draft-block[open] summary { margin-bottom: 8px; }
+.draft-toggle-icon { font-size: 14px; }
+.draft-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; padding: 0 4px; }
+.draft-meta strong { color: var(--text); font-weight: 600; }
+.draft-textarea { width: 100%; min-height: 140px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg); color: var(--text); font-family: inherit; font-size: 14px; line-height: 1.5; resize: vertical; -webkit-appearance: none; }
+.draft-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15); }
+.draft-actions { display: flex; align-items: center; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+.send-btn { background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; border: none; padding: 10px 20px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 2px 6px rgba(249, 115, 22, 0.3); transition: transform 0.1s, box-shadow 0.2s; -webkit-tap-highlight-color: transparent; }
+.send-btn:hover { box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4); transform: translateY(-1px); }
+.send-btn:active { transform: translateY(0); }
+.send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.send-btn.sent { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); box-shadow: 0 2px 6px rgba(34, 197, 94, 0.3); }
+.draft-hint { font-size: 12px; color: var(--text-dim); }
+.email-action-row { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.action-link { display: inline-block; background: linear-gradient(135deg, #fb923c, #f97316); color: white; padding: 10px 18px; border-radius: 12px; font-size: 14px; font-weight: 700; text-decoration: none; margin-top: 8px; box-shadow: 0 2px 6px rgba(249, 115, 22, 0.3); transition: transform 0.1s; }
+.action-link:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4); }
+.action-note { font-size: 12px; color: var(--text-muted); padding: 8px 10px; background: var(--surface-2); border-radius: 8px; margin-top: 6px; }
+.email-bottom-actions { display: flex; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+.reviewed-btn { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+.reviewed-btn:hover { background: #dbeafe; color: #1d4ed8; border-color: #3b82f6; }
+.reviewed-btn:active { transform: scale(0.96); }
+.reviewed-btn.reviewed { background: #3b82f6; color: white; border-color: #2563eb; }
+.reviewed-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.email-card.reviewed-card { opacity: 0.55; }
+.done-btn { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+.done-btn:hover { background: #dcfce7; color: #15803d; border-color: #22c55e; }
+.done-btn.done { background: #22c55e; color: white; border-color: #16a34a; }
+.done-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.feedback-btn { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+.priority-fb-btn:hover { background: #fef3c7; color: #92400e; border-color: #f59e0b; }
+.priority-fb-btn.saved { background: linear-gradient(135deg, #fbbf24, #f97316); color: white; border-color: #f97316; }
+.noise-fb-btn:hover { background: #f1f5f9; color: #475569; border-color: #94a3b8; }
+.noise-fb-btn.saved { background: #64748b; color: white; border-color: #475569; }
+.feedback-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.backlog-card { border-left: 3px solid var(--accent-2) !important; }
+.age-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: rgba(251,191,36,0.18); color: #92400e; border: 1px solid rgba(251,191,36,0.35); margin-left: 4px; }
+@media (prefers-color-scheme: dark) { .age-badge { color: var(--accent-2); } }
+.backlog-note { font-size: 11px; color: var(--text-dim); padding: 6px 4px 0; }
+.cc-hint { color: var(--text-muted); font-size: 11px; }
+.nudge-card { background: var(--surface); border: 1px solid #f97316; border-left: 4px solid #f97316; border-radius: 14px; padding: 14px 18px; margin-bottom: 10px; box-shadow: var(--shadow); }
+.nudge-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #f97316; margin-bottom: 4px; }
+.nudge-subject { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.nudge-meta { font-size: 12px; color: var(--text-muted); }
+
+/* Task action buttons */
+.task-card { flex-direction: column; align-items: stretch; }
+.task-row { display: flex; align-items: center; gap: 10px; }
+.task-actions { display: flex; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }
+.task-btn { flex: 1; padding: 6px 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; -webkit-tap-highlight-color: transparent; font-family: inherit; }
+.task-btn:hover { background: var(--surface-2); color: var(--accent); border-color: var(--accent); }
+.task-btn:active { transform: scale(0.96); }
+.task-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.task-btn.task-done-btn:hover { background: #dcfce7; color: #15803d; border-color: #22c55e; }
+.task-btn.task-done-btn.done { background: #22c55e; color: white; border-color: #16a34a; }
+.task-btn.task-defer-btn:hover { background: #fef3c7; color: #a16207; border-color: #f59e0b; }
+.task-btn.task-top3-btn.top3-active { background: linear-gradient(135deg, #fde68a, #fbbf24); color: #92400e; border-color: #f59e0b; }
+.task-card.done-card { opacity: 0.5; }
+.task-card.done-card .task-title { text-decoration: line-through; }
+
+/* Quick Capture floating button + modal */
+.fab {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+  color: white;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+  z-index: 100;
+  transition: transform 0.15s, box-shadow 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.fab:hover { transform: scale(1.05); box-shadow: 0 8px 28px rgba(249, 115, 22, 0.5); }
+.fab:active { transform: scale(0.95); }
+.modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal-backdrop.show { display: flex; }
+.modal { background: var(--surface); padding: 24px; border-radius: 20px; max-width: 480px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+.modal h2 { font-size: 20px; font-weight: 800; margin-bottom: 16px; color: var(--text); }
+.modal-input { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg); color: var(--text); font-family: inherit; font-size: 15px; }
+.modal-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15); }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+.modal-btn { padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 700; border: none; cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+.modal-btn.cancel { background: var(--surface-2); color: var(--text-muted); }
+.modal-btn.primary { background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); color: white; }
+
+/* Tasks */
+.task-bucket { margin-bottom: 14px; }
+.bucket-label { font-size: 12px; font-weight: 800; color: var(--text-muted); margin-bottom: 6px; padding: 0 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+.overdue-bucket .bucket-label { color: var(--red); }
+.task-card { display: flex; align-items: center; gap: 10px; padding: 11px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 6px; font-size: 14px; box-shadow: var(--shadow); }
+.task-card.overdue { border-left: 3px solid var(--red); }
+.task-card.today { border-left: 3px solid var(--accent); }
+.task-card.tomorrow { border-left: 3px solid var(--text-dim); }
+.prio-badge { display: inline-block; color: white; font-size: 10px; font-weight: 800; padding: 3px 7px; border-radius: 5px; min-width: 28px; text-align: center; }
+.task-title { flex: 1; font-weight: 500; }
+.star { color: var(--accent-2); margin-left: 4px; }
+.task-meta { display: flex; gap: 6px; align-items: center; font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+.proj-chip { background: var(--surface-2); color: var(--accent); padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+.task-due { font-variant-numeric: tabular-nums; }
+
+.footer { margin-top: 48px; padding-top: 20px; border-top: 1px dashed var(--border); text-align: center; font-size: 12px; color: var(--text-dim); }
+
+/* Toast */
+.toast-container { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 8px; align-items: center; pointer-events: none; }
+.toast { background: #1c1917; color: white; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 600; box-shadow: 0 10px 30px rgba(0,0,0,0.25); display: flex; gap: 10px; align-items: center; max-width: 90vw; opacity: 0; transform: translateY(20px); transition: opacity 0.25s, transform 0.25s; }
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.success { background: linear-gradient(135deg, #16a34a, #22c55e); }
+.toast.error { background: linear-gradient(135deg, #dc2626, #ef4444); }
+
+@media (max-width: 480px) {
+  .container { padding: 20px 14px 60px; }
+  .sun-banner { padding: 22px 18px 18px; }
+  .greeting { font-size: 22px; }
+  .stats { font-size: 12px; gap: 10px; padding: 10px 12px; }
+  .email-header { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="sun-banner">
+    <div class="sun-emoji">☀️</div>
+    <div class="date">Friday, June 5, 2026</div>
+    <div class="greeting">Good morning, Ian. 8 overdue — let's chip away.</div>
+    <div class="stats"><span>📅 <strong>1</strong> events</span><span>📧 <strong>4</strong> action</span><span>👀 <strong>1</strong> fyi</span><span>📬 <strong>21</strong> backlog</span><span class="overdue-stat">⏰ <strong>8</strong> overdue</span></div>
+  </div>
+
+  
+
+  <div class="fun-fact">
+    <div class="fun-fact-icon">💡</div>
+    <div>
+      <span class="fun-fact-label">Daily Spark</span>
+      <span class="fun-fact-text">Octopuses have three hearts—two pump blood to the gills, one to the rest of the body, and it stops beating when they swim, which is why they prefer crawling.</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">📅 Today's Schedule</div>
+    <div class="cal-event"><div class="cal-time">1:00 PM</div><div class="cal-title">Ian Klotz and Blake Hengel <span class="muted">@ https://us05web.zoom.us/j/84852626964?pwd=ZqlANCIjruFc65x1TctozkHvJ8UaSx.1</span> <span class="badge">2 attendees</span></div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">⚡ Needs Action</div>
+    <div class="email-card"><div class="email-header"><div class="email-from">Sean Ade</div><div class="email-chips"><span class="inbox-chip">lineageland</span></div></div><div class="email-subject">Re: Domain</div><div class="email-blurb">Sean says Champion Homes are live on the Dropship MH site and mostly done.</div><details class="email-body-block"><summary>📨 Read email</summary><div class="email-body-text">Hey! We finally got the champion homes on the site. I think it's as finished as it'll ever be. Here's what we currently have - Home – Default - Dropship MH &lt;https://dropshipmh.com/&gt; On Thu, May 28, 2026 at 12:55 PM Sean Ade &lt;sean@dropshipmh.com&gt; wrote: &gt; Hey here is a bit more information from Sandra regarding the site and &gt; plugins- &gt; &gt; &gt; Champion homes are in progress, though I think they have not been pushed &gt; live. I also gave the team the other missing category. I will check on this &gt; myself today to see where things are on the site and ensure it is top &gt; priority to complete ASAP. It is</div></details><div class="email-action-row"><span class="email-action" style="background:#2563eb1A;color:#2563eb;border-color:#2563eb33">REPLY</span></div><details class="draft-block" open><summary>✉️ Review & send reply</summary><div class="draft-meta">To: <strong>sean@dropshipmh.com</strong> · Subject: <strong>Re: Domain</strong></div><textarea id="draft-0" class="draft-textarea" rows="6" spellcheck="true">Nice, thanks for the update. Let me know if anything else needs tweaking on the site. Ian</textarea><div class="draft-actions"><button class="send-btn primary-btn" data-account="lineageland" data-to="sean@dropshipmh.com" data-cc="[]" data-subject="Re: Domain" data-draft-id="draft-0">☀️ Send</button><span class="draft-hint">reply-all by default · edit above to change</span></div></details><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;CABM68Gnm3AWtoHFB3hRhpxhoLwNNZ+2_zZm0YH+nsvuTquMQeg@mail.gmail.com&gt;" data-inbox="lineageland" data-subject="Re: Domain" data-action-type="reply">👁 Reviewed</button><button class="done-btn" data-message-id="&lt;CABM68Gnm3AWtoHFB3hRhpxhoLwNNZ+2_zZm0YH+nsvuTquMQeg@mail.gmail.com&gt;" data-inbox="lineageland" data-subject="Re: Domain">✅ Done</button><button class="feedback-btn priority-fb-btn" data-sender-addr="sean@dropshipmh.com" data-message-id="&lt;CABM68Gnm3AWtoHFB3hRhpxhoLwNNZ+2_zZm0YH+nsvuTquMQeg@mail.gmail.com&gt;" data-subject="Re: Domain" data-inbox="lineageland" data-tier="1-priority" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="sean@dropshipmh.com" data-message-id="&lt;CABM68Gnm3AWtoHFB3hRhpxhoLwNNZ+2_zZm0YH+nsvuTquMQeg@mail.gmail.com&gt;" data-subject="Re: Domain" data-inbox="lineageland" data-tier="1-priority" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card"><div class="email-header"><div class="email-from">John Camp via Docusign</div><div class="email-chips"><span class="inbox-chip">lineageland</span></div></div><div class="email-subject">Reminder: Complete with Docusign: Termination_Agreement_-_725 (1) (2).pdf</div><div class="email-blurb">John Camp needs you to re-sign the termination agreement on Docusign (your name should now populate correctly).</div><details class="email-body-block"><summary>📨 Read email</summary><div class="email-body-text">Hello Ian Klotz, John Camp has sent you a new Docusign document to view and sign. Please click on the link below to begin signing. Ian, it looks like the termination was signed by Lineage Land, can you please resign? &amp;nbsp;It should come up with your name Ian Klotz now. &amp;nbsp;Let me know if it still is not working. &amp;nbsp; Thanks Review Document https://na2.docusign.net/Signing/EmailStart.aspx?a=2b0aa262-2c26-84db-8353-9d0557b167ff&amp;etti=24&amp;acct=8f7b53f0-989c-4abd-8576-89d393e5da3f&amp;er=894cd45d-58ce-80db-83ef-bb33d207f1ae&amp;ensd=OlmiHSbJ0eI9ZkG%252fXULDatYacfmRCDN6VYKBOejbuziqQ0lG63gc1fGPLWU7Agpc8o</div></details><div class="email-action-row"><span class="email-action" style="background:#7c3aed1A;color:#7c3aed;border-color:#7c3aed33">SIGN</span></div><a class="action-link" href="https://na2.docusign.net/Signing/EmailStart.aspx?a=2b0aa262-2c26-84db-8353-9d0557b167ff&amp;etti=24&amp;acct=8f7b53f0-989c-4abd-8576-89d393e5da3f&amp;er=894cd45d-58ce-80db-83ef-bb33d207f1ae&amp;ensd=OlmiHSbJ0eI9ZkG%252fXULDatYacfmRCDN6VYKBOejbuziqQ0lG63gc1fGPLWU7Agpc8o3OKKVJgPqayGON8tQ5KWj%252fM9SO22EsJIxQrwFlQFe6aB6JT2r0FlcCHsJasThTIkotYzjCkBE%252f46CtwnRKyeGjVGEwJwTgkULpob6SYJeD0AQPrQciW%252fgpnKTrFOcf" target="_blank" rel="noopener">📝 Open Signing Page →</a><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;dd538958ef004719b085b3424f0c8e7c@docusign.net&gt;" data-inbox="lineageland" data-subject="Reminder: Complete with Docusign: Termination_Agreement_-_725 (1) (2).pdf" data-action-type="sign">👁 Reviewed</button><button class="done-btn" data-message-id="&lt;dd538958ef004719b085b3424f0c8e7c@docusign.net&gt;" data-inbox="lineageland" data-subject="Reminder: Complete with Docusign: Termination_Agreement_-_725 (1) (2).pdf">✅ Done</button><button class="feedback-btn priority-fb-btn" data-sender-addr="dse_na2@docusign.net" data-message-id="&lt;dd538958ef004719b085b3424f0c8e7c@docusign.net&gt;" data-subject="Reminder: Complete with Docusign: Termination_Agreement_-_725 (1) (2).pdf" data-inbox="lineageland" data-tier="1-priority" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="dse_na2@docusign.net" data-message-id="&lt;dd538958ef004719b085b3424f0c8e7c@docusign.net&gt;" data-subject="Reminder: Complete with Docusign: Termination_Agreement_-_725 (1) (2).pdf" data-inbox="lineageland" data-tier="1-priority" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card"><div class="email-header"><div class="email-from">Vianca from REsimpli</div><div class="email-chips"><span class="inbox-chip">circlecity</span></div></div><div class="email-subject">Re: Account Cancellation Request - ian@circlecitybrands.com</div><div class="email-blurb">Vianca from REsimpli following up on your Circle City account cancellation—checking if you need anything else.</div><details class="email-body-block"><summary>📨 Read email</summary><div class="email-body-text">Hi Ian, I hope you're doing well. I just wanted to follow up to see if you had any questions or if there’s anything else I can assist you with. Please don’t hesitate to let me know, I’m here to help! Happy investing,﻿​﻿ Vianca Repollo ﻿REsimpli Customer Support Executive ​﻿www.resimpli.com ﻿ 🤝 Refer friends and earn $100 off for every successful referral. It’s our way of saying thanks. Learn More</div></details><div class="email-action-row"><span class="email-action" style="background:#2563eb1A;color:#2563eb;border-color:#2563eb33">REPLY</span></div><details class="draft-block" open><summary>✉️ Review & send reply</summary><div class="draft-meta">To: <strong>vianca@resimpli.com</strong> · Subject: <strong>Re: Account Cancellation Request - ian@circlecitybrands.com</strong></div><textarea id="draft-2" class="draft-textarea" rows="6" spellcheck="true">All set, thanks for wrapping that up. Appreciate the help. Ian</textarea><div class="draft-actions"><button class="send-btn primary-btn" data-account="circlecity" data-to="vianca@resimpli.com" data-cc="[]" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-draft-id="draft-2">☀️ Send</button><span class="draft-hint">reply-all by default · edit above to change</span></div></details><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;5b896623-70c9412c-1780580846-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-inbox="circlecity" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-action-type="reply">👁 Reviewed</button><button class="done-btn" data-message-id="&lt;5b896623-70c9412c-1780580846-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-inbox="circlecity" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com">✅ Done</button><button class="feedback-btn priority-fb-btn" data-sender-addr="vianca@resimpli.com" data-message-id="&lt;5b896623-70c9412c-1780580846-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="vianca@resimpli.com" data-message-id="&lt;5b896623-70c9412c-1780580846-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card"><div class="email-header"><div class="email-from">Justin Gilmore</div><div class="email-chips"><span class="inbox-chip">lineageland</span></div></div><div class="email-subject">Re: Becton Law Firm</div><div class="email-blurb">Justin Gilmore checking in on status of the Becton Law Firm property deal and asking for closing timeline.</div><details class="email-body-block"><summary>📨 Read email</summary><div class="email-body-text">Hi everyone, Just wanted to follow up and check in on status since it has been a little while since the last update. I know these things can take time, but I wanted to see if there is anything outstanding on my end or if there is an estimated timeline for next steps and closing. Happy to provide anything needed from me to help move things along. Thanks again and appreciate everyone's work on this. Justin On Thu, May 28, 2026 at 9:24 AM Chad C &lt;legacyten11@gmail.com&gt; wrote: &gt; Good Morning Marcus, &gt; When can we expect a closing date on this property? &gt; &gt; Respectfully, &gt; Chad Cliffe &gt; Principal A</div></details><div class="email-action-row"><span class="email-action" style="background:#2563eb1A;color:#2563eb;border-color:#2563eb33">REPLY</span></div><details class="draft-block" open><summary>✉️ Review & send reply</summary><div class="draft-meta">To: <strong>gilmorejh@gmail.com</strong><span class="cc-hint"> · CC: legacyten11@gmail.com, marcus@bectonlawfirm.com</span> · Subject: <strong>Re: Becton Law Firm</strong></div><textarea id="draft-3" class="draft-textarea" rows="6" spellcheck="true">Let me check with the team on where we're at and circle back with a timeline. Thanks for the push. Ian</textarea><div class="draft-actions"><button class="send-btn primary-btn" data-account="lineageland" data-to="gilmorejh@gmail.com" data-cc="[&quot;legacyten11@gmail.com&quot;, &quot;marcus@bectonlawfirm.com&quot;]" data-subject="Re: Becton Law Firm" data-draft-id="draft-3">☀️ Send + 2 CC</button><span class="draft-hint">reply-all by default · edit above to change</span></div></details><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;CAKr232kJo9Rvrd=gny+WXGfFF29eDdCs7cEmaAo1btgK_Jr+Mw@mail.gmail.com&gt;" data-inbox="lineageland" data-subject="Re: Becton Law Firm" data-action-type="reply">👁 Reviewed</button><button class="done-btn" data-message-id="&lt;CAKr232kJo9Rvrd=gny+WXGfFF29eDdCs7cEmaAo1btgK_Jr+Mw@mail.gmail.com&gt;" data-inbox="lineageland" data-subject="Re: Becton Law Firm">✅ Done</button><button class="feedback-btn priority-fb-btn" data-sender-addr="gilmorejh@gmail.com" data-message-id="&lt;CAKr232kJo9Rvrd=gny+WXGfFF29eDdCs7cEmaAo1btgK_Jr+Mw@mail.gmail.com&gt;" data-subject="Re: Becton Law Firm" data-inbox="lineageland" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="gilmorejh@gmail.com" data-message-id="&lt;CAKr232kJo9Rvrd=gny+WXGfFF29eDdCs7cEmaAo1btgK_Jr+Mw@mail.gmail.com&gt;" data-subject="Re: Becton Law Firm" data-inbox="lineageland" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+  </div>
+
+  <div class="section"><div class="section-title">👀 FYI / Stay In The Loop</div><div class="email-card fyi-card"><div class="email-header"><div class="email-from">Arthur from REsimpli</div><div class="email-chips"><span class="inbox-chip">lineageland</span></div></div><div class="email-subject">Re: REsimpli Account Cancellation</div><div class="email-blurb">REsimpli confirmed your Lineage Land account cancellation is complete.</div><div class="email-action-row"><span class="email-action" style="background:#4755691A;color:#475569;border-color:#47556933">FYI</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;849ea474-cfe7c335-1780504067-215474553561489-1824305@outbound.intercom.resimpli.com&gt;" data-inbox="lineageland" data-subject="Re: REsimpli Account Cancellation" data-action-type="fyi">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="arthur@resimpli.com" data-message-id="&lt;849ea474-cfe7c335-1780504067-215474553561489-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: REsimpli Account Cancellation" data-inbox="lineageland" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="arthur@resimpli.com" data-message-id="&lt;849ea474-cfe7c335-1780504067-215474553561489-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: REsimpli Account Cancellation" data-inbox="lineageland" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div></div>
+
+  <div class="section"><div class="section-title">📬 Unaddressed — Last 30 Days</div><div class="email-card backlog-card"><div class="email-header"><div class="email-from">Deborah Carpenter</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">2d ago</span></div></div><div class="email-subject">May Bookkeeping - Circle City X LLC</div><div class="email-blurb">Hi, Hope you are doing well! Here's the list of items to get the books done this month for May. Please email the following when you have a chance, or even better- simply upload to your Client Portal at https://clients.ca</div><div class="email-action-row"><span class="email-action" style="background:#dc26261A;color:#dc2626;border-color:#dc262633">P1</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;0101019e88ebafda-5529e1cc-5ff7-4dce-9682-5908d846371c-000000@us-west-2.amazonses.com&gt;" data-inbox="circlecity" data-subject="May Bookkeeping - Circle City X LLC">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="debbie@capforge.com" data-message-id="&lt;0101019e88ebafda-5529e1cc-5ff7-4dce-9682-5908d846371c-000000@us-west-2.amazonses.com&gt;" data-subject="May Bookkeeping - Circle City X LLC" data-inbox="circlecity" data-tier="1-priority" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="debbie@capforge.com" data-message-id="&lt;0101019e88ebafda-5529e1cc-5ff7-4dce-9682-5908d846371c-000000@us-west-2.amazonses.com&gt;" data-subject="May Bookkeeping - Circle City X LLC" data-inbox="circlecity" data-tier="1-priority" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Landan Dory</div><div class="email-chips"><span class="inbox-chip">lineageland</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">Join me for a call (6/2/2026)</div><div class="email-blurb">Ian, I wanted to personally invite you to something I thought you might have some interest in or benefit from. If not, please consider forwarding it to someone who might be interested. On June 2nd at 4 p.m. Central Time,</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;7jFZN000000000000000000000000000000000000000000000TFYUIB00hx5Eo28kQm2fd9gn3rnEWg@sfdc.net&gt;" data-inbox="lineageland" data-subject="Join me for a call (6/2/2026)">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="landan@nstarba.com" data-message-id="&lt;7jFZN000000000000000000000000000000000000000000000TFYUIB00hx5Eo28kQm2fd9gn3rnEWg@sfdc.net&gt;" data-subject="Join me for a call (6/2/2026)" data-inbox="lineageland" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="landan@nstarba.com" data-message-id="&lt;7jFZN000000000000000000000000000000000000000000000TFYUIB00hx5Eo28kQm2fd9gn3rnEWg@sfdc.net&gt;" data-subject="Join me for a call (6/2/2026)" data-inbox="lineageland" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Cathy Rolfe</div><div class="email-chips"><span class="inbox-chip">lineageland</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">RE: Sale of tract on Newberry Road to Driggers- plaintext</div><div class="email-blurb">Thanks for the info. Attached, please find the I-295 form which needs to be completed so we will know if there is to be a gain amount for us to collect the 5% Withholding Tax through closing for SC. This is for prelimina</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;BYAPR18MB3046C7C88F3FE1EFD618D1C5B8152@BYAPR18MB3046.namprd18.prod.outlook.com&gt;" data-inbox="lineageland" data-subject="RE: Sale of tract on Newberry Road to Driggers- plaintext">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="crr@mclainlawfirm.com" data-message-id="&lt;BYAPR18MB3046C7C88F3FE1EFD618D1C5B8152@BYAPR18MB3046.namprd18.prod.outlook.com&gt;" data-subject="RE: Sale of tract on Newberry Road to Driggers- plaintext" data-inbox="lineageland" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="crr@mclainlawfirm.com" data-message-id="&lt;BYAPR18MB3046C7C88F3FE1EFD618D1C5B8152@BYAPR18MB3046.namprd18.prod.outlook.com&gt;" data-subject="RE: Sale of tract on Newberry Road to Driggers- plaintext" data-inbox="lineageland" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Cathy Rolfe</div><div class="email-chips"><span class="inbox-chip">lineageland</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">RE: Sale of tract on Newberry Road to Driggers- plaintext</div><div class="email-blurb">I also need a phone number for you so we can send our verification link. * Please be sure to update your records to show our new office address below. [cid:image001.jpg@01DCF1DA.25A42070][McLain &amp; Associates New Logo 201</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;BYAPR18MB3046E25621FACDEB9DB38130B8152@BYAPR18MB3046.namprd18.prod.outlook.com&gt;" data-inbox="lineageland" data-subject="RE: Sale of tract on Newberry Road to Driggers- plaintext">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="crr@mclainlawfirm.com" data-message-id="&lt;BYAPR18MB3046E25621FACDEB9DB38130B8152@BYAPR18MB3046.namprd18.prod.outlook.com&gt;" data-subject="RE: Sale of tract on Newberry Road to Driggers- plaintext" data-inbox="lineageland" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="crr@mclainlawfirm.com" data-message-id="&lt;BYAPR18MB3046E25621FACDEB9DB38130B8152@BYAPR18MB3046.namprd18.prod.outlook.com&gt;" data-subject="RE: Sale of tract on Newberry Road to Driggers- plaintext" data-inbox="lineageland" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Rubie Donaghy</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">Accepted: Rubie Donaghy and Circle City Brands @ Thu Jun 4, 2026 12pm
+ - 12:30pm (GMT-5) (ian@circlecitybrands.com)</div><div class="email-blurb">Rubie Donaghy has accepted this invitation. Rubie Donaghy and Circle City Brands Thursday Jun 4, 2026 ⋅ 12pm – 12:30pm Colombia Standard Time Location Google Meet (instructions in description) https://www.google.com/maps</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;calendar-ae9cfd73-8a95-460e-a65f-54dedb57d77b@google.com&gt;" data-inbox="circlecity" data-subject="Accepted: Rubie Donaghy and Circle City Brands @ Thu Jun 4, 2026 12pm
+ - 12:30pm (GMT-5) (ian@circlecitybrands.com)">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="rubieandjason@gmail.com" data-message-id="&lt;calendar-ae9cfd73-8a95-460e-a65f-54dedb57d77b@google.com&gt;" data-subject="Accepted: Rubie Donaghy and Circle City Brands @ Thu Jun 4, 2026 12pm
+ - 12:30pm (GMT-5) (ian@circlecitybrands.com)" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="rubieandjason@gmail.com" data-message-id="&lt;calendar-ae9cfd73-8a95-460e-a65f-54dedb57d77b@google.com&gt;" data-subject="Accepted: Rubie Donaghy and Circle City Brands @ Thu Jun 4, 2026 12pm
+ - 12:30pm (GMT-5) (ian@circlecitybrands.com)" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Jessica Miller</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">Quick thought on your cleaning setup</div><div class="email-blurb">Hi Ian, My name is Jessica with Corvus Janitorial Systems. One of our managers will be in and around your area next week, dropping by a client nearby, and they'd like to visit your business to drop off a on-the-house cle</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;019e8417-cf61-70d8-ad8a-5c136edab5b2@guidegurutips.com&gt;" data-inbox="circlecity" data-subject="Quick thought on your cleaning setup">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="jessica@guidegurutips.com" data-message-id="&lt;019e8417-cf61-70d8-ad8a-5c136edab5b2@guidegurutips.com&gt;" data-subject="Quick thought on your cleaning setup" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="jessica@guidegurutips.com" data-message-id="&lt;019e8417-cf61-70d8-ad8a-5c136edab5b2@guidegurutips.com&gt;" data-subject="Quick thought on your cleaning setup" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Edgar Alacan</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">your next flight</div><div class="email-blurb">Hi Ian, If you have any travel coming up and might need a private jet, we can confirm one in just a few hours and adjust the aircraft if your group size changes. Your flight hours don't expire and can be shared with fami</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;e259e22a-dd0f-05c8-7ca6-5b8a2e68286b@flyjetspro.com&gt;" data-inbox="circlecity" data-subject="your next flight">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="edg.alacan@flyjetspro.com" data-message-id="&lt;e259e22a-dd0f-05c8-7ca6-5b8a2e68286b@flyjetspro.com&gt;" data-subject="your next flight" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="edg.alacan@flyjetspro.com" data-message-id="&lt;e259e22a-dd0f-05c8-7ca6-5b8a2e68286b@flyjetspro.com&gt;" data-subject="your next flight" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">JetBlue</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">JetBlue booking confirmation for IAN  KLOTZ - WUUPQG</div><div class="email-blurb">Check out the details for your trip on Fri, July 3 JetBlue ( https://clicks.needtoknow.jetblue.com/f/a/Myp35p7Ev0k81V0MzlGlvg~~/AAQRxRA~/r_NRvwDmHOswZlkm8iiuAamfE3JZbQ0IHazIGRFaVLD1WWrmW3zro0zDxaPo5acGp8HvMVHtWy0r1W7Msjh</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;9F.2B.38532.8EE1E1A6@i-0d874f8783e7a2995.mta1vrest.sd.prd.sparkpost&gt;" data-inbox="circlecity" data-subject="JetBlue booking confirmation for IAN  KLOTZ - WUUPQG">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="jetblueairways@needtoknow.jetblue.com" data-message-id="&lt;9F.2B.38532.8EE1E1A6@i-0d874f8783e7a2995.mta1vrest.sd.prd.sparkpost&gt;" data-subject="JetBlue booking confirmation for IAN  KLOTZ - WUUPQG" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="jetblueairways@needtoknow.jetblue.com" data-message-id="&lt;9F.2B.38532.8EE1E1A6@i-0d874f8783e7a2995.mta1vrest.sd.prd.sparkpost&gt;" data-subject="JetBlue booking confirmation for IAN  KLOTZ - WUUPQG" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">CapForge Bookkeeping</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">CapForge Receipt for Payment #179736 for Circle City X LLC</div><div class="email-blurb">Date: 06/01/2026Invoice: 179736Billed To: Circle City X LLC 1768 TRILLIUM CT AVON, IN 46123-8651 CapForge Bookkeeping, Tax &amp; More 5962 Priestly Drive Carlsbad, CA 92008 858-633-3573 payments@capforge.com DescriptionAmoun</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;0101019e85b3b352-06d3a94a-41ae-452f-946f-0c7861812fab-000000@us-west-2.amazonses.com&gt;" data-inbox="circlecity" data-subject="CapForge Receipt for Payment #179736 for Circle City X LLC">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="info@capforge.com" data-message-id="&lt;0101019e85b3b352-06d3a94a-41ae-452f-946f-0c7861812fab-000000@us-west-2.amazonses.com&gt;" data-subject="CapForge Receipt for Payment #179736 for Circle City X LLC" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="info@capforge.com" data-message-id="&lt;0101019e85b3b352-06d3a94a-41ae-452f-946f-0c7861812fab-000000@us-west-2.amazonses.com&gt;" data-subject="CapForge Receipt for Payment #179736 for Circle City X LLC" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">arfax_west@unfi.com</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">UNFI Customer Statement 308217260602001 for Statement  Date  6/2/2026</div><div class="email-blurb">Dear Valued Customer, Attached please find your weekly statement file UNFI_308217260602001.pdf. If you have any questions, please reach out to ARSharedServices@unfi.com Thank you</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;97aa403a-b358-43c8-a1a6-4fe93b9b5525@idboiwexc001.unfi.com&gt;" data-inbox="circlecity" data-subject="UNFI Customer Statement 308217260602001 for Statement  Date  6/2/2026">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="arfax_west@unfi.com" data-message-id="&lt;97aa403a-b358-43c8-a1a6-4fe93b9b5525@idboiwexc001.unfi.com&gt;" data-subject="UNFI Customer Statement 308217260602001 for Statement  Date  6/2/2026" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="arfax_west@unfi.com" data-message-id="&lt;97aa403a-b358-43c8-a1a6-4fe93b9b5525@idboiwexc001.unfi.com&gt;" data-subject="UNFI Customer Statement 308217260602001 for Statement  Date  6/2/2026" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Vianca from REsimpli</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">Re: Account Cancellation Request - ian@circlecitybrands.com</div><div class="email-blurb">Hi there, I wanted to let you know that I've received your message. I'll review it and respond to you as soon as possible. Thank you for your patience! ​ Happy investing,﻿​﻿ Vianca Repollo ﻿REsimpli Customer Support Exec</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;fe2de312-01219c2c-1780405086-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-inbox="circlecity" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="vianca@resimpli.com" data-message-id="&lt;fe2de312-01219c2c-1780405086-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="vianca@resimpli.com" data-message-id="&lt;fe2de312-01219c2c-1780405086-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Vianca from REsimpli</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">2d ago</span></div></div><div class="email-subject">Re: Account Cancellation Request - ian@circlecitybrands.com</div><div class="email-blurb">Hi Ian, Thank you so much for reaching out, and also for the kind words about your experience with REsimpli. We truly appreciate your support and the time you’ve spent using the platform. I’m sorry to hear about the bill</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;553fdbdd-cc81d5d9-1780412160-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-inbox="circlecity" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="vianca@resimpli.com" data-message-id="&lt;553fdbdd-cc81d5d9-1780412160-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="vianca@resimpli.com" data-message-id="&lt;553fdbdd-cc81d5d9-1780412160-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Vianca from REsimpli</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">2d ago</span></div></div><div class="email-subject">Re: Account Cancellation Request - ian@circlecitybrands.com</div><div class="email-blurb">Hi Ian, Thank you for your message, and I’m really sorry for the frustration and concern this has caused. I completely understand why this feels unfair from your perspective, especially with the timing of the cancellatio</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;c52d96e5-431e9b82-1780413664-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-inbox="circlecity" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="vianca@resimpli.com" data-message-id="&lt;c52d96e5-431e9b82-1780413664-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="vianca@resimpli.com" data-message-id="&lt;c52d96e5-431e9b82-1780413664-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Vianca from REsimpli</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">2d ago</span></div></div><div class="email-subject">Re: Account Cancellation Request - ian@circlecitybrands.com</div><div class="email-blurb">Thank you for sharing your thoughts, and I really do understand where you’re coming from. I want to assure you that I’m not dismissing your concern or simply hiding behind policy. I’ve reviewed everything you shared care</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;90071c76-bf6b8b83-1780415002-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-inbox="circlecity" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="vianca@resimpli.com" data-message-id="&lt;90071c76-bf6b8b83-1780415002-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="vianca@resimpli.com" data-message-id="&lt;90071c76-bf6b8b83-1780415002-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Bitwarden Inc.</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">2d ago</span></div></div><div class="email-subject">Your receipt from Bitwarden Inc. #2407-0235</div><div class="email-blurb">Bitwarden Inc. (https://bitwarden.com) Bitwarden Inc. Receipt from Bitwarden Inc. $60.00 Paid June 2, 2026 (invoice illustration [https://stripe-images.s3.amazonaws.com/emails/invoices_invoice_illustration.png]) Download</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;0101019e890eca06-3386ef46-7c62-4885-b1c5-67db3365d0d5-000000@us-west-2.amazonses.com&gt;" data-inbox="circlecity" data-subject="Your receipt from Bitwarden Inc. #2407-0235">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="invoice+statements@bitwarden.com" data-message-id="&lt;0101019e890eca06-3386ef46-7c62-4885-b1c5-67db3365d0d5-000000@us-west-2.amazonses.com&gt;" data-subject="Your receipt from Bitwarden Inc. #2407-0235" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="invoice+statements@bitwarden.com" data-message-id="&lt;0101019e890eca06-3386ef46-7c62-4885-b1c5-67db3365d0d5-000000@us-west-2.amazonses.com&gt;" data-subject="Your receipt from Bitwarden Inc. #2407-0235" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Neacy from REsimpli</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">2d ago</span></div></div><div class="email-subject">Re: Account Cancellation Request - ian@circlecitybrands.com</div><div class="email-blurb">Hi Ian, ​ My name is Neacy, one of the Support Leads here at REsimpli. Vianca reached out to me regarding your refund request, and I took the time to review the details of your case. ​ After reviewing the request, I'm af</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;90b6c445-1af50f9f-1780420990-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-inbox="circlecity" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="neacy@resimpli.com" data-message-id="&lt;90b6c445-1af50f9f-1780420990-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="neacy@resimpli.com" data-message-id="&lt;90b6c445-1af50f9f-1780420990-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Vianca from REsimpli</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">2d ago</span></div></div><div class="email-subject">Re: Account Cancellation Request - ian@circlecitybrands.com</div><div class="email-blurb">Hi Ian, I completely understand your concern, and I want to clarify this for you as clearly as possible. We have already requested a refund for the most recent charge on May 30, and that is currently in process. However,</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;a7d2072f-9b68d65e-1780421685-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-inbox="circlecity" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="vianca@resimpli.com" data-message-id="&lt;a7d2072f-9b68d65e-1780421685-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="vianca@resimpli.com" data-message-id="&lt;a7d2072f-9b68d65e-1780421685-215474456505836-1824305@outbound.intercom.resimpli.com&gt;" data-subject="Re: Account Cancellation Request - ian@circlecitybrands.com" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Cathy Rolfe</div><div class="email-chips"><span class="inbox-chip">lineageland</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">RE: Sale of tract on Newberry Road to Driggers- plaintext</div><div class="email-blurb">Good afternoon! This file has been forwarded to me for the next phase of closing. I do see where a few corporate documents have been provided for each LLC. However, in order to prepare the tax forms that I need to send o</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;BYAPR18MB3046A17F587FCA77F3C086F9B8152@BYAPR18MB3046.namprd18.prod.outlook.com&gt;" data-inbox="lineageland" data-subject="RE: Sale of tract on Newberry Road to Driggers- plaintext">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="crr@mclainlawfirm.com" data-message-id="&lt;BYAPR18MB3046A17F587FCA77F3C086F9B8152@BYAPR18MB3046.namprd18.prod.outlook.com&gt;" data-subject="RE: Sale of tract on Newberry Road to Driggers- plaintext" data-inbox="lineageland" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="crr@mclainlawfirm.com" data-message-id="&lt;BYAPR18MB3046A17F587FCA77F3C086F9B8152@BYAPR18MB3046.namprd18.prod.outlook.com&gt;" data-subject="RE: Sale of tract on Newberry Road to Driggers- plaintext" data-inbox="lineageland" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Robert Sheridan</div><div class="email-chips"><span class="inbox-chip">lineageland</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">Re: Sale of tract on Newberry Road to Driggers- plaintext</div><div class="email-blurb">Cathy, My (Frontier Land Solutions) EIN Number is 39-4926654 On Mon, Jun 1, 2026 at 2:36 PM Cathy Rolfe &lt;crr@mclainlawfirm.com&gt; wrote: &gt; Good afternoon! This file has been forwarded to me for the next phase of &gt; closing.</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;CAGaevGLpHQFWtQXZ8nYW-=qhY=2eNEgY8qTEkC+DPzKbfw5uzw@mail.gmail.com&gt;" data-inbox="lineageland" data-subject="Re: Sale of tract on Newberry Road to Driggers- plaintext">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="robert@frontierlandsolutions.org" data-message-id="&lt;CAGaevGLpHQFWtQXZ8nYW-=qhY=2eNEgY8qTEkC+DPzKbfw5uzw@mail.gmail.com&gt;" data-subject="Re: Sale of tract on Newberry Road to Driggers- plaintext" data-inbox="lineageland" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="robert@frontierlandsolutions.org" data-message-id="&lt;CAGaevGLpHQFWtQXZ8nYW-=qhY=2eNEgY8qTEkC+DPzKbfw5uzw@mail.gmail.com&gt;" data-subject="Re: Sale of tract on Newberry Road to Driggers- plaintext" data-inbox="lineageland" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">April Newman</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">Re: URGENT: CapForge Amazon Access | Circle City X LLC</div><div class="email-blurb">Hi Ian - Happy Monday! The invitations have been sent for you to approve and then edit our permissions for *both* stores. They can take a few minutes to appear under *Open Invitations &gt; Authorized Partners*. The permissi</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;CADmz7T7hrOSnApxzhxrtgaePhLyDj1XUN9zozcBrOrONKmbTUg@mail.gmail.com&gt;" data-inbox="circlecity" data-subject="Re: URGENT: CapForge Amazon Access | Circle City X LLC">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="april@capforge.com" data-message-id="&lt;CADmz7T7hrOSnApxzhxrtgaePhLyDj1XUN9zozcBrOrONKmbTUg@mail.gmail.com&gt;" data-subject="Re: URGENT: CapForge Amazon Access | Circle City X LLC" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="april@capforge.com" data-message-id="&lt;CADmz7T7hrOSnApxzhxrtgaePhLyDj1XUN9zozcBrOrONKmbTUg@mail.gmail.com&gt;" data-subject="Re: URGENT: CapForge Amazon Access | Circle City X LLC" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div>
+<div class="email-card backlog-card"><div class="email-header"><div class="email-from">Meghan Perry - CapForge</div><div class="email-chips"><span class="inbox-chip">circlecity</span><span class="age-badge">3d ago</span></div></div><div class="email-subject">Re: URGENT: CapForge Amazon Access | Circle City X LLC</div><div class="email-blurb">Thank you, Ian! I'm glad April was able to get those invitations sent out - I confirmed we are all set for both stores. We really appreciate your help to make this switch. Enjoy the rest of your week! Meghan *Meghan Perr</div><div class="email-action-row"><span class="email-action" style="background:#0891b21A;color:#0891b2;border-color:#0891b233">direct</span></div><div class="email-bottom-actions"><button class="reviewed-btn" data-message-id="&lt;CABcNBxSPpGX_zNM1LDM_MW9NLqj6m3H6k+Lw88qKubuqeVhKhw@mail.gmail.com&gt;" data-inbox="circlecity" data-subject="Re: URGENT: CapForge Amazon Access | Circle City X LLC">👁 Reviewed</button><button class="feedback-btn priority-fb-btn" data-sender-addr="meghan@capforge.com" data-message-id="&lt;CABcNBxSPpGX_zNM1LDM_MW9NLqj6m3H6k+Lw88qKubuqeVhKhw@mail.gmail.com&gt;" data-subject="Re: URGENT: CapForge Amazon Access | Circle City X LLC" data-inbox="circlecity" data-tier="2-direct" data-importance="5">🔥 Priority</button><button class="feedback-btn noise-fb-btn" data-sender-addr="meghan@capforge.com" data-message-id="&lt;CABcNBxSPpGX_zNM1LDM_MW9NLqj6m3H6k+Lw88qKubuqeVhKhw@mail.gmail.com&gt;" data-subject="Re: URGENT: CapForge Amazon Access | Circle City X LLC" data-inbox="circlecity" data-tier="2-direct" data-importance="1">🔇 Noise</button></div></div><p class="backlog-note">Priority senders &amp; direct threads only · mark reviewed to clear</p></div>
+
+  <div class="section">
+    <div class="section-title">🎯 Tasks</div>
+    <div class="task-bucket overdue-bucket"><div class="bucket-label">⚠ Overdue (8)</div><div class="task-card overdue" data-task-id="317ce781-edd8-809d-a8f3-d0ed2827a595"><div class="task-row"><span class="prio-badge" style="background:#64748b">?</span><span class="task-title">List footy cards for sale</span><span class="task-meta"><span class="task-due">2026-04-24</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="317ce781-edd8-809d-a8f3-d0ed2827a595" title="Mark done">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="317ce781-edd8-809d-a8f3-d0ed2827a595" title="Defer 1 day">📅 +1d</button><button class="task-btn task-top3-btn top3-active" data-task-id="317ce781-edd8-809d-a8f3-d0ed2827a595" title="Toggle Top 3">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="372ce781-edd8-8035-8796-d31ac28c26c4"><div class="task-row"><span class="prio-badge" style="background:#dc2626">P1</span><span class="task-title">Kent follow up</span><span class="task-meta"><span class="task-due">2026-06-02</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="372ce781-edd8-8035-8796-d31ac28c26c4" title="Mark done">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="372ce781-edd8-8035-8796-d31ac28c26c4" title="Defer 1 day">📅 +1d</button><button class="task-btn task-top3-btn top3-active" data-task-id="372ce781-edd8-8035-8796-d31ac28c26c4" title="Toggle Top 3">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="372ce781-edd8-80cd-93b7-d75ece4e4ba4"><div class="task-row"><span class="prio-badge" style="background:#dc2626">P1</span><span class="task-title">Check lineage credit card and make plan</span><span class="task-meta"><span class="task-due">2026-06-03</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="372ce781-edd8-80cd-93b7-d75ece4e4ba4" title="Mark done">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="372ce781-edd8-80cd-93b7-d75ece4e4ba4" title="Defer 1 day">📅 +1d</button><button class="task-btn task-top3-btn top3-active" data-task-id="372ce781-edd8-80cd-93b7-d75ece4e4ba4" title="Toggle Top 3">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="33ece781-edd8-80d0-8f46-de65ace12b59"><div class="task-row"><span class="prio-badge" style="background:#ea580c">P2</span><span class="task-title">Write Diving Review</span><span class="task-meta"><span class="task-due">2026-04-11</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="33ece781-edd8-80d0-8f46-de65ace12b59" title="Mark done">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="33ece781-edd8-80d0-8f46-de65ace12b59" title="Defer 1 day">📅 +1d</button><button class="task-btn task-top3-btn" data-task-id="33ece781-edd8-80d0-8f46-de65ace12b59" title="Toggle Top 3">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="372ce781-edd8-808b-9547-c751fcd55e7d"><div class="task-row"><span class="prio-badge" style="background:#ea580c">P2</span><span class="task-title">Save instagram automation</span><span class="task-meta"><span class="task-due">2026-05-31</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="372ce781-edd8-808b-9547-c751fcd55e7d" title="Mark done">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="372ce781-edd8-808b-9547-c751fcd55e7d" title="Defer 1 day">📅 +1d</button><button class="task-btn task-top3-btn" data-task-id="372ce781-edd8-808b-9547-c751fcd55e7d" title="Toggle Top 3">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="371ce781-edd8-81ed-9dcc-efd896a44bbf"><div class="task-row"><span class="prio-badge" style="background:#ea580c">P2</span><span class="task-title">Write Diving Review</span><span class="task-meta"><span class="task-due">2026-04-11</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="371ce781-edd8-81ed-9dcc-efd896a44bbf" title="Mark done">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="371ce781-edd8-81ed-9dcc-efd896a44bbf" title="Defer 1 day">📅 +1d</button><button class="task-btn task-top3-btn" data-task-id="371ce781-edd8-81ed-9dcc-efd896a44bbf" title="Toggle Top 3">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="371ce781-edd8-81a2-9755-f3671b996d25"><div class="task-row"><span class="prio-badge" style="background:#ea580c">P2</span><span class="task-title">indiana NFT recovery</span><span class="task-meta"><span class="task-due">2026-06-01</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="371ce781-edd8-81a2-9755-f3671b996d25" title="Mark done">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="371ce781-edd8-81a2-9755-f3671b996d25" title="Defer 1 day">📅 +1d</button><button class="task-btn task-top3-btn" data-task-id="371ce781-edd8-81a2-9755-f3671b996d25" title="Toggle Top 3">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="36fce781-edd8-815f-9e7f-c0592de0ef56"><div class="task-row"><span class="prio-badge" style="background:#ea580c">P2</span><span class="task-title">Review lead pipeline from Sean</span><span class="task-meta"><span class="task-due">2026-05-31</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="36fce781-edd8-815f-9e7f-c0592de0ef56" title="Mark done">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="36fce781-edd8-815f-9e7f-c0592de0ef56" title="Defer 1 day">📅 +1d</button><button class="task-btn task-top3-btn" data-task-id="36fce781-edd8-815f-9e7f-c0592de0ef56" title="Toggle Top 3">★ Top 3</button></div></div></div>
+  </div>
+
+  <div class="footer">Generated 9:04 AM Medellin · Hermes ☤</div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
+<button class="fab" id="fab" title="Quick capture task">+</button>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <h2>🎯 Quick Capture</h2>
+    <input id="capture-input" class="modal-input" placeholder="What needs to get done?" autocomplete="off" />
+    <div class="modal-actions">
+      <button class="modal-btn cancel" id="capture-cancel">Cancel</button>
+      <button class="modal-btn primary" id="capture-save">Add Task</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SEND_ENDPOINT = "https://lvmsneabldchxpvkwcde.supabase.co/functions/v1/send-briefing-reply";
+const SEND_TOKEN = "pt9ukHMfNCcnuo6a8siYqCiKMFGKp-jkU0wbLUYhoIM";
+
+function showToast(msg, kind) {
+  const container = document.getElementById("toast-container");
+  const toast = document.createElement("div");
+  toast.className = "toast " + (kind || "");
+  toast.textContent = msg;
+  container.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add("show"));
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
+}
+
+async function apiCall(payload) {
+  const resp = await fetch(SEND_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + SEND_TOKEN,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  const data = await resp.json();
+  return { ok: resp.ok && data.ok, data, status: resp.status };
+}
+
+// Email send buttons (reply-all by default)
+document.querySelectorAll(".send-btn").forEach(btn => {
+  btn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const account = btn.dataset.account;
+    const to = btn.dataset.to;
+    const subject = btn.dataset.subject;
+    const draftId = btn.dataset.draftId;
+    const body = document.getElementById(draftId).value.trim();
+    if (!body) { showToast("Draft is empty — write something first", "error"); return; }
+    let cc = [];
+    try { cc = JSON.parse(btn.dataset.cc || "[]"); } catch(_) {}
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = "Sending...";
+    const result = await apiCall({ type: "send_email", account, to, cc, subject, body });
+    if (result.ok) {
+      btn.classList.add("sent");
+      btn.textContent = "✓ Sent";
+      showToast("✉️ Sent to " + to + (cc.length ? " + " + cc.length + " CC" : ""), "success");
+    } else {
+      btn.disabled = false;
+      btn.textContent = originalText;
+      showToast("Failed: " + (result.data.error || result.status), "error");
+    }
+  });
+});
+
+// Mark email as Reviewed (passes action_type so nudge can be scheduled if needed)
+document.querySelectorAll(".reviewed-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const messageId = btn.dataset.messageId;
+    const inbox = btn.dataset.inbox;
+    const subject = btn.dataset.subject;
+    const actionType = btn.dataset.actionType || "";
+    if (!messageId) { showToast("No message ID — can't mark reviewed", "error"); return; }
+    btn.disabled = true;
+    const original = btn.textContent;
+    btn.textContent = "...";
+    const result = await apiCall({ type: "email_review", message_id: messageId, inbox, subject, action_type: actionType });
+    if (result.ok) {
+      btn.classList.add("reviewed");
+      btn.textContent = "✓ Reviewed";
+      btn.closest(".email-card").classList.add("reviewed-card");
+      const nudgeMsg = result.data && result.data.nudge_scheduled ? " (nudge set for tomorrow)" : "";
+      showToast("Marked as reviewed 👁" + nudgeMsg, "success");
+    } else {
+      btn.disabled = false;
+      btn.textContent = original;
+      showToast("Failed: " + (result.data.error || "error"), "error");
+    }
+  });
+});
+
+// Task action buttons
+document.querySelectorAll(".task-done-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const taskId = btn.dataset.taskId;
+    btn.disabled = true;
+    btn.textContent = "...";
+    const result = await apiCall({ type: "task_action", task_action: "complete", task_id: taskId });
+    if (result.ok) {
+      btn.textContent = "✓ Done";
+      btn.classList.add("done");
+      btn.closest(".task-card").classList.add("done-card");
+      showToast("Task completed 🎉", "success");
+    } else {
+      btn.disabled = false;
+      btn.textContent = "✓ Done";
+      showToast("Failed: " + (result.data.error || "error"), "error");
+    }
+  });
+});
+
+document.querySelectorAll(".task-defer-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const taskId = btn.dataset.taskId;
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = "...";
+    const result = await apiCall({ type: "task_action", task_action: "defer", task_id: taskId, defer_days: 1 });
+    if (result.ok) {
+      btn.textContent = "✓ +1d";
+      showToast("Deferred 1 day 📅", "success");
+      setTimeout(() => { btn.textContent = originalText; btn.disabled = false; }, 2000);
+    } else {
+      btn.disabled = false;
+      btn.textContent = originalText;
+      showToast("Failed: " + (result.data.error || "error"), "error");
+    }
+  });
+});
+
+document.querySelectorAll(".task-top3-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const taskId = btn.dataset.taskId;
+    btn.disabled = true;
+    const result = await apiCall({ type: "task_action", task_action: "toggle_top3", task_id: taskId });
+    if (result.ok) {
+      if (result.data.is_top_three) {
+        btn.classList.add("top3-active");
+        showToast("Added to Top 3 ⭐", "success");
+      } else {
+        btn.classList.remove("top3-active");
+        showToast("Removed from Top 3", "success");
+      }
+    } else {
+      showToast("Failed: " + (result.data.error || "error"), "error");
+    }
+    btn.disabled = false;
+  });
+});
+
+// Done buttons — reviewed with no nudge
+document.querySelectorAll(".done-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const messageId = btn.dataset.messageId;
+    const inbox = btn.dataset.inbox;
+    const subject = btn.dataset.subject;
+    if (!messageId) { showToast("No message ID", "error"); return; }
+    btn.disabled = true;
+    const orig = btn.textContent;
+    btn.textContent = "...";
+    const result = await apiCall({ type: "email_review", message_id: messageId, inbox, subject, action_type: "done" });
+    if (result.ok) {
+      btn.classList.add("done");
+      btn.textContent = "✅ Done";
+      btn.closest(".email-card").classList.add("reviewed-card");
+      // Disable the sibling reviewed btn too
+      const rev = btn.closest(".email-bottom-actions").querySelector(".reviewed-btn");
+      if (rev) { rev.disabled = true; rev.style.opacity = "0.4"; }
+      showToast("✅ Closed out — no follow-up", "success");
+    } else {
+      btn.disabled = false;
+      btn.textContent = orig;
+      showToast("Failed: " + (result.data.error || "error"), "error");
+    }
+  });
+});
+
+// Feedback buttons (🔥 Priority / 🔇 Noise)
+document.querySelectorAll(".feedback-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const senderAddr = btn.dataset.senderAddr;
+    const importance = parseInt(btn.dataset.importance);
+    const isPriority = importance >= 4;
+    btn.disabled = true;
+    const orig = btn.textContent;
+    btn.textContent = "...";
+    const result = await apiCall({
+      type: "email_feedback",
+      sender_addr: senderAddr,
+      importance,
+      message_id: btn.dataset.messageId || "",
+      subject: btn.dataset.subject || "",
+      inbox: btn.dataset.inbox || "",
+      tier: btn.dataset.tier || "",
+    });
+    if (result.ok) {
+      btn.classList.add("saved");
+      btn.textContent = isPriority ? "🔥 Saved" : "🔇 Saved";
+      // Disable the sibling feedback button too
+      const siblings = btn.closest(".email-bottom-actions").querySelectorAll(".feedback-btn");
+      siblings.forEach(s => { if (s !== btn) { s.disabled = true; s.style.opacity = "0.3"; } });
+      showToast(
+        isPriority ? "🔥 " + senderAddr + " added to your priority list" : "🔇 " + senderAddr + " will be filtered from future briefs",
+        isPriority ? "success" : ""
+      );
+    } else {
+      btn.disabled = false;
+      btn.textContent = orig;
+      showToast("Failed to save feedback", "error");
+    }
+  });
+});
+
+// Quick capture
+const fab = document.getElementById("fab");
+const backdrop = document.getElementById("modal-backdrop");
+const input = document.getElementById("capture-input");
+const cancelBtn = document.getElementById("capture-cancel");
+const saveBtn = document.getElementById("capture-save");
+
+function openModal() { backdrop.classList.add("show"); setTimeout(() => input.focus(), 50); }
+function closeModal() { backdrop.classList.remove("show"); input.value = ""; }
+
+fab.addEventListener("click", openModal);
+cancelBtn.addEventListener("click", closeModal);
+backdrop.addEventListener("click", (e) => { if (e.target === backdrop) closeModal(); });
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") { saveBtn.click(); }
+  if (e.key === "Escape") { closeModal(); }
+});
+saveBtn.addEventListener("click", async () => {
+  const title = input.value.trim();
+  if (!title) { showToast("Task title can't be empty", "error"); return; }
+  saveBtn.disabled = true;
+  saveBtn.textContent = "Adding...";
+  const result = await apiCall({ type: "task_action", task_action: "create", title });
+  saveBtn.disabled = false;
+  saveBtn.textContent = "Add Task";
+  if (result.ok) {
+    showToast("Task added: " + title, "success");
+    closeModal();
+  } else {
+    showToast("Failed: " + (result.data.error || "error"), "error");
+  }
+});
+</script>
+</body>
+</html>
