@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌙 Evening Wrap — Sunday, June 21, 2026</title>
+<style>
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0f0c1a; --bg-grad: linear-gradient(160deg, #1a1033 0%, #0f0c1a 60%, #0d0f1a 100%);
+  --surface: #1a1630; --surface-2: #241e40; --border: #352d5a;
+  --text: #e2dff5; --text-muted: #9d94c4; --text-dim: #5e5880;
+  --accent: #a78bfa; --accent-2: #7c3aed; --red: #f87171;
+  --shadow: 0 2px 8px rgba(0,0,0,0.4); --shadow-strong: 0 8px 24px rgba(0,0,0,0.5);
+}
+html, body { background: var(--bg); background-image: var(--bg-grad); background-attachment: fixed;
+  color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+  font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+.container { max-width: 720px; margin: 0 auto; padding: 28px 18px 80px; }
+.brief-banner { position: relative; background: linear-gradient(120deg, #4c1d95 0%, #6d28d9 50%, #7c3aed 100%);
+  border-radius: 20px; padding: 28px 24px 24px; margin-bottom: 24px; box-shadow: var(--shadow-strong); overflow: hidden; }
+.brief-banner::before { content: ""; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%); border-radius: 50%; }
+.banner-emoji { font-size: 36px; line-height: 1; margin-bottom: 4px; }
+.date { color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; position: relative; z-index: 1; }
+.greeting { color: #fff; font-size: 26px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; position: relative; z-index: 1; }
+.stats { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 14px; padding: 12px 16px;
+  background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); border-radius: 14px;
+  font-size: 13px; color: #e2dff5; position: relative; z-index: 1; }
+.stats strong { font-weight: 800; color: #fff; }
+.stats .overdue-stat strong { color: #fca5a5; }
+.section { margin-top: 28px; }
+.section-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--accent); margin-bottom: 12px; padding-left: 4px; }
+.empty { color: var(--text-muted); font-size: 14px; padding: 16px 18px; background: var(--surface);
+  border: 1px dashed var(--border); border-radius: 14px; }
+.cal-event { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 14px; margin-bottom: 8px; box-shadow: var(--shadow); }
+.cal-time { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 14px; min-width: 72px; color: var(--accent); }
+.cal-title { font-weight: 600; flex: 1; }
+.muted { color: var(--text-muted); font-weight: 400; }
+.badge { display: inline-block; background: var(--surface-2); color: var(--accent); padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; margin-left: 4px; }
+.email-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px 18px; margin-bottom: 12px; box-shadow: var(--shadow); }
+.email-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+.email-from { font-weight: 700; font-size: 14px; }
+.email-chips { display: flex; gap: 6px; }
+.inbox-chip { font-size: 10px; padding: 3px 9px; border-radius: 999px; font-weight: 700; text-transform: uppercase; background: var(--surface-2); color: var(--accent); }
+.email-subject { font-size: 14.5px; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+.email-blurb { font-size: 13.5px; color: var(--text-muted); margin-bottom: 10px; }
+.email-action { display: inline-block; font-size: 11px; font-weight: 800; padding: 5px 11px; border-radius: 8px; border: 1px solid; }
+.email-action-row { margin-bottom: 8px; }
+.email-bottom-actions { display: flex; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); flex-wrap: wrap; }
+.email-card.reviewed-card { opacity: 0.5; }
+.reviewed-btn { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+.reviewed-btn:hover { background: #312e81; color: #a5b4fc; border-color: #6366f1; }
+.reviewed-btn.reviewed { background: #6366f1; color: white; border-color: #4f46e5; }
+.reviewed-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.done-btn { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+.done-btn:hover { background: #052e16; color: #86efac; border-color: #22c55e; }
+.done-btn.done { background: #22c55e; color: white; border-color: #16a34a; }
+.done-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.feedback-btn { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+.priority-fb-btn.saved { background: linear-gradient(135deg, #fbbf24, #f97316); color: white; }
+.noise-fb-btn.saved { background: #64748b; color: white; }
+.feedback-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.task-card { flex-direction: column; align-items: stretch; }
+.task-row { display: flex; align-items: center; gap: 10px; }
+.task-actions { display: flex; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }
+.task-btn { flex: 1; padding: 6px 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+.task-btn.task-done-btn.done { background: #22c55e; color: white; border-color: #16a34a; }
+.task-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.task-card.done-card { opacity: 0.5; }
+.task-card.done-card .task-title { text-decoration: line-through; }
+.task-bucket { margin-bottom: 14px; }
+.bucket-label { font-size: 12px; font-weight: 800; color: var(--text-muted); margin-bottom: 6px; padding: 0 4px; text-transform: uppercase; }
+.overdue-bucket .bucket-label { color: var(--red); }
+.task-card { display: flex; align-items: center; gap: 10px; padding: 11px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 6px; font-size: 14px; box-shadow: var(--shadow); }
+.task-card.overdue { border-left: 3px solid var(--red); }
+.task-card.today { border-left: 3px solid var(--accent); }
+.prio-badge { display: inline-block; color: white; font-size: 10px; font-weight: 800; padding: 3px 7px; border-radius: 5px; min-width: 28px; text-align: center; }
+.task-title { flex: 1; font-weight: 500; }
+.task-meta { display: flex; gap: 6px; align-items: center; font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+.proj-chip { background: var(--surface-2); color: var(--accent); padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+.task-due { font-variant-numeric: tabular-nums; }
+.task-btn.task-top3-btn.top3-active { background: linear-gradient(135deg, #6d28d9, #7c3aed); color: white; border-color: #7c3aed; }
+.fab { position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #6d28d9); color: white; border: none; font-size: 28px;
+  cursor: pointer; box-shadow: 0 6px 20px rgba(124,58,237,0.4); z-index: 100; transition: transform 0.15s; }
+.fab:hover { transform: scale(1.05); }
+.modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal-backdrop.show { display: flex; }
+.modal { background: var(--surface); padding: 24px; border-radius: 20px; max-width: 480px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+.modal h2 { font-size: 20px; font-weight: 800; margin-bottom: 16px; color: var(--text); }
+.modal-input { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg); color: var(--text); font-family: inherit; font-size: 15px; }
+.modal-input:focus { outline: none; border-color: var(--accent); }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+.modal-btn { padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 700; border: none; cursor: pointer; font-family: inherit; }
+.modal-btn.cancel { background: var(--surface-2); color: var(--text-muted); }
+.modal-btn.primary { background: linear-gradient(135deg, #7c3aed, #6d28d9); color: white; }
+.footer { margin-top: 48px; padding-top: 20px; border-top: 1px dashed var(--border); text-align: center; font-size: 12px; color: var(--text-dim); }
+.toast-container { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 8px; align-items: center; pointer-events: none; }
+.toast { background: #1e1b4b; color: white; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 600; box-shadow: 0 10px 30px rgba(0,0,0,0.4); max-width: 90vw; opacity: 0; transform: translateY(20px); transition: opacity 0.25s, transform 0.25s; }
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.success { background: linear-gradient(135deg, #16a34a, #22c55e); }
+.toast.error { background: linear-gradient(135deg, #dc2626, #ef4444); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="brief-banner">
+    <div class="banner-emoji">🌙</div>
+    <div class="date">Sunday, June 21, 2026</div>
+    <div class="greeting">Hey, Ian. 8 overdue — let's chip away.</div>
+    <div class="stats"><span>🌙 <strong>3</strong> tomorrow</span><span>📧 <strong>0</strong> new today</span><span class="overdue-stat">⏰ <strong>8</strong> overdue</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">📅 Tomorrow's Schedule</div>
+    <div class="cal-event"><div class="cal-time">12:30 PM</div><div class="cal-title">Brent / Cali / Ian <span class="badge">4 attendees</span></div></div>
+<div class="cal-event"><div class="cal-time">2:00 PM</div><div class="cal-title">WC</div></div>
+<div class="cal-event"><div class="cal-time">4:00 PM</div><div class="cal-title">Bryan and Kim Gregory  and Circle City Brands <span class="muted">@ Google Meet (instructions in description)</span> <span class="badge">2 attendees</span></div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">📧 Still Needs You Today</div>
+    <p class="empty">📭 Nothing new since afternoon. Good day.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🎯 Open Tasks</div>
+    <div class="task-bucket overdue-bucket"><div class="bucket-label">⚠ Still overdue (8)</div><div class="task-card overdue" data-task-id="317ce781-edd8-809d-a8f3-d0ed2827a595"><div class="task-row"><span class="prio-badge" style="background:#64748b">?</span><span class="task-title">List footy cards for sale</span><span class="task-meta"><span class="task-due">2026-04-24</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="317ce781-edd8-809d-a8f3-d0ed2827a595">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="317ce781-edd8-809d-a8f3-d0ed2827a595">📅 +1d</button><button class="task-btn task-top3-btn top3-active" data-task-id="317ce781-edd8-809d-a8f3-d0ed2827a595">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="372ce781-edd8-80cd-93b7-d75ece4e4ba4"><div class="task-row"><span class="prio-badge" style="background:#dc2626">P1</span><span class="task-title">Check lineage credit card and make plan</span><span class="task-meta"><span class="task-due">2026-06-03</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="372ce781-edd8-80cd-93b7-d75ece4e4ba4">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="372ce781-edd8-80cd-93b7-d75ece4e4ba4">📅 +1d</button><button class="task-btn task-top3-btn top3-active" data-task-id="372ce781-edd8-80cd-93b7-d75ece4e4ba4">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="373ce781-edd8-8044-8fe4-dde1f71e34ea"><div class="task-row"><span class="prio-badge" style="background:#dc2626">P1</span><span class="task-title">buy flight to indy and mde</span><span class="task-meta"><span class="task-due">2026-06-08</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="373ce781-edd8-8044-8fe4-dde1f71e34ea">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="373ce781-edd8-8044-8fe4-dde1f71e34ea">📅 +1d</button><button class="task-btn task-top3-btn top3-active" data-task-id="373ce781-edd8-8044-8fe4-dde1f71e34ea">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="372ce781-edd8-80d5-aefc-dd97982cc055"><div class="task-row"><span class="prio-badge" style="background:#dc2626">P1</span><span class="task-title">Find 3 leads for Sean</span><span class="task-meta"><span class="task-due">2026-06-05</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="372ce781-edd8-80d5-aefc-dd97982cc055">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="372ce781-edd8-80d5-aefc-dd97982cc055">📅 +1d</button><button class="task-btn task-top3-btn" data-task-id="372ce781-edd8-80d5-aefc-dd97982cc055">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="33ece781-edd8-80d0-8f46-de65ace12b59"><div class="task-row"><span class="prio-badge" style="background:#ea580c">P2</span><span class="task-title">Write Diving Review</span><span class="task-meta"><span class="task-due">2026-04-11</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="33ece781-edd8-80d0-8f46-de65ace12b59">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="33ece781-edd8-80d0-8f46-de65ace12b59">📅 +1d</button><button class="task-btn task-top3-btn" data-task-id="33ece781-edd8-80d0-8f46-de65ace12b59">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="372ce781-edd8-808b-9547-c751fcd55e7d"><div class="task-row"><span class="prio-badge" style="background:#ea580c">P2</span><span class="task-title">Save instagram automation</span><span class="task-meta"><span class="task-due">2026-05-31</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="372ce781-edd8-808b-9547-c751fcd55e7d">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="372ce781-edd8-808b-9547-c751fcd55e7d">📅 +1d</button><button class="task-btn task-top3-btn" data-task-id="372ce781-edd8-808b-9547-c751fcd55e7d">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="371ce781-edd8-81a2-9755-f3671b996d25"><div class="task-row"><span class="prio-badge" style="background:#ea580c">P2</span><span class="task-title">indiana NFT recovery</span><span class="task-meta"><span class="task-due">2026-06-01</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="371ce781-edd8-81a2-9755-f3671b996d25">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="371ce781-edd8-81a2-9755-f3671b996d25">📅 +1d</button><button class="task-btn task-top3-btn" data-task-id="371ce781-edd8-81a2-9755-f3671b996d25">★ Top 3</button></div></div><div class="task-card overdue" data-task-id="36fce781-edd8-815f-9e7f-c0592de0ef56"><div class="task-row"><span class="prio-badge" style="background:#ea580c">P2</span><span class="task-title">Review lead pipeline from Sean</span><span class="task-meta"><span class="task-due">2026-05-31</span></span></div><div class="task-actions"><button class="task-btn task-done-btn" data-task-id="36fce781-edd8-815f-9e7f-c0592de0ef56">✓ Done</button><button class="task-btn task-defer-btn" data-task-id="36fce781-edd8-815f-9e7f-c0592de0ef56">📅 +1d</button><button class="task-btn task-top3-btn" data-task-id="36fce781-edd8-815f-9e7f-c0592de0ef56">★ Top 3</button></div></div></div>
+  </div>
+
+  <div class="footer">Generated 9:30 PM Medellin · Hermes ☤</div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+<button class="fab" id="fab" title="Quick capture">+</button>
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <h2>🎯 Quick Capture</h2>
+    <input id="capture-input" class="modal-input" placeholder="What needs to get done?" autocomplete="off" />
+    <div class="modal-actions">
+      <button class="modal-btn cancel" id="capture-cancel">Cancel</button>
+      <button class="modal-btn primary" id="capture-save">Add Task</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SEND_ENDPOINT = "https://lvmsneabldchxpvkwcde.supabase.co/functions/v1/send-briefing-reply";
+const SEND_TOKEN = "pt9ukHMfNCcnuo6a8siYqCiKMFGKp-jkU0wbLUYhoIM";
+function showToast(msg, kind) {
+  const c = document.getElementById("toast-container");
+  const t = document.createElement("div");
+  t.className = "toast " + (kind || "");
+  t.textContent = msg;
+  c.appendChild(t);
+  requestAnimationFrame(() => t.classList.add("show"));
+  setTimeout(() => { t.classList.remove("show"); setTimeout(() => t.remove(), 300); }, 4000);
+}
+async function apiCall(payload) {
+  const r = await fetch(SEND_ENDPOINT, { method: "POST",
+    headers: { "Authorization": "Bearer " + SEND_TOKEN, "Content-Type": "application/json" },
+    body: JSON.stringify(payload) });
+  const d = await r.json();
+  return { ok: r.ok && d.ok, data: d, status: r.status };
+}
+document.querySelectorAll(".reviewed-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const mid = btn.dataset.messageId; if (!mid) return;
+    btn.disabled = true; const orig = btn.textContent; btn.textContent = "...";
+    const res = await apiCall({ type: "email_review", message_id: mid, inbox: btn.dataset.inbox, subject: btn.dataset.subject, action_type: btn.dataset.actionType || "" });
+    if (res.ok) { btn.classList.add("reviewed"); btn.textContent = "✓ Reviewed"; btn.closest(".email-card").classList.add("reviewed-card"); showToast("👁 Reviewed", "success"); }
+    else { btn.disabled = false; btn.textContent = orig; showToast("Failed", "error"); }
+  });
+});
+document.querySelectorAll(".done-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const mid = btn.dataset.messageId; if (!mid) return;
+    btn.disabled = true; const orig = btn.textContent; btn.textContent = "...";
+    const res = await apiCall({ type: "email_review", message_id: mid, inbox: btn.dataset.inbox, subject: btn.dataset.subject, action_type: "done" });
+    if (res.ok) { btn.classList.add("done"); btn.textContent = "✅ Done"; btn.closest(".email-card").classList.add("reviewed-card"); showToast("✅ Done", "success"); }
+    else { btn.disabled = false; btn.textContent = orig; showToast("Failed", "error"); }
+  });
+});
+document.querySelectorAll(".feedback-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const imp = parseInt(btn.dataset.importance); btn.disabled = true; const orig = btn.textContent; btn.textContent = "...";
+    const res = await apiCall({ type: "email_feedback", sender_addr: btn.dataset.senderAddr, importance: imp, message_id: btn.dataset.messageId || "", subject: btn.dataset.subject || "", inbox: btn.dataset.inbox || "", tier: btn.dataset.tier || "" });
+    if (res.ok) { btn.classList.add("saved"); btn.textContent = imp >= 4 ? "🔥" : "🔇"; showToast(imp >= 4 ? "🔥 Priority" : "🔇 Filtered", "success"); }
+    else { btn.disabled = false; btn.textContent = orig; }
+  });
+});
+document.querySelectorAll(".task-done-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    btn.disabled = true; btn.textContent = "...";
+    const res = await apiCall({ type: "task_action", task_action: "complete", task_id: btn.dataset.taskId });
+    if (res.ok) { btn.textContent = "✓"; btn.classList.add("done"); btn.closest(".task-card").classList.add("done-card"); showToast("✓ Done 🎉", "success"); }
+    else { btn.disabled = false; btn.textContent = "✓ Done"; }
+  });
+});
+document.querySelectorAll(".task-defer-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const orig = btn.textContent; btn.disabled = true; btn.textContent = "...";
+    const res = await apiCall({ type: "task_action", task_action: "defer", task_id: btn.dataset.taskId, defer_days: 1 });
+    if (res.ok) { showToast("📅 Deferred", "success"); setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 1500); }
+    else { btn.disabled = false; btn.textContent = orig; }
+  });
+});
+document.querySelectorAll(".task-top3-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    btn.disabled = true;
+    const res = await apiCall({ type: "task_action", task_action: "toggle_top3", task_id: btn.dataset.taskId });
+    if (res.ok) { res.data.is_top_three ? btn.classList.add("top3-active") : btn.classList.remove("top3-active"); showToast(res.data.is_top_three ? "⭐ Top 3" : "Removed", "success"); }
+    btn.disabled = false;
+  });
+});
+const fab = document.getElementById("fab");
+const backdrop = document.getElementById("modal-backdrop");
+const inp = document.getElementById("capture-input");
+const cancelBtn = document.getElementById("capture-cancel");
+const saveBtn = document.getElementById("capture-save");
+fab.addEventListener("click", () => { backdrop.classList.add("show"); setTimeout(() => inp.focus(), 50); });
+cancelBtn.addEventListener("click", () => { backdrop.classList.remove("show"); inp.value = ""; });
+backdrop.addEventListener("click", e => { if (e.target === backdrop) { backdrop.classList.remove("show"); inp.value = ""; } });
+inp.addEventListener("keydown", e => { if (e.key === "Enter") saveBtn.click(); if (e.key === "Escape") { backdrop.classList.remove("show"); inp.value = ""; } });
+saveBtn.addEventListener("click", async () => {
+  const title = inp.value.trim(); if (!title) return;
+  saveBtn.disabled = true; saveBtn.textContent = "Adding...";
+  const res = await apiCall({ type: "task_action", task_action: "create", title });
+  saveBtn.disabled = false; saveBtn.textContent = "Add Task";
+  if (res.ok) { showToast("✅ " + title, "success"); backdrop.classList.remove("show"); inp.value = ""; }
+  else showToast("Failed", "error");
+});
+</script>
+</body>
+</html>
